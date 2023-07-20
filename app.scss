@@ -1,0 +1,72 @@
+@use "_colorsPartials.scss" as color1;
+@use "_colorsPartials2.scss" as color2;
+// note: @use rules must be written before any other rules.
+
+* {
+  font-size: 1.52rem;
+}
+// $col1 : red;
+// $col2 : green;
+// $col3 : blue;
+
+// $col : red, pink, green;
+
+// import colores from partials but we should avoid import insted prefer use command shown at the top
+
+// @import "_colorsPartials.scss";
+// @import "_colorsPartials2.scss";
+
+body {
+  // background-color: $col1;
+  background-color: nth(color1.$col, 1);
+}
+div {
+  color: nth(color1.$col, 2);
+}
+// but compiler compile it wether it is uded or not so to avoid this we create a template by usinf % sign in front of it
+
+// .login{
+//     padding: 20px;
+//     background-color: dodgerblue;
+//     color: aliceblue;
+// }
+
+// creating template
+// %template{
+//     padding: 20px;
+//     background-color: dodgerblue;
+//     color: aliceblue;
+// }
+
+// .login{
+// @extend %template;
+// background-color: brown;
+// color: rgb(217, 255, 3);
+// font-size: 3rem;
+// //  but this is cumberson method so we use functions mixmin
+// }
+// .login2{
+//     @extend %template
+// }
+// .div{
+//     @extend %template
+// }
+@mixin customFunction($customColor, $textColor) {
+  background-color: $customColor;
+  color: $textColor;
+  font-size: 3rem;
+  &:hover {
+    background-color: nth(color1.$col, 2);
+    color: black;
+  }
+}
+.login {
+  @include customFunction(rgb(43, 43, 43), nth(color1.$col, 1));
+}
+.login2 {
+  @include customFunction(nth(color2.$col, 3), nth(color1.$col, 2));
+}
+.div {
+  @include customFunction(rgb(114, 243, 149), rgb(159, 43, 194));
+  font-size: calc((200px - 10px)/2);
+}
